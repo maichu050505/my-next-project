@@ -140,11 +140,9 @@ export default function Home() {
 
           {/* セクション最後に「一覧を見る」ボタン */}
           <div className="mt-8 flex justify-center">
-            <div className="mt-8 flex justify-center">
-              <Button href="/works" variant="secondary" size="lg">
-                一覧を見る
-              </Button>
-            </div>
+            <Button href="/works" variant="secondary" size="lg">
+              一覧を見る
+            </Button>
           </div>
         </div>
       </section>

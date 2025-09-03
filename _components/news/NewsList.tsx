@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { News } from "@/app/_libs/microcms";
+import Badge from "@/_components/ui/Badge";
 
 type Props = {
   news: News[];
@@ -34,9 +35,9 @@ export default function NewsList({ news, limit }: Props) {
 
             {/* モバイル：2行目 = カテゴリ＋タイトル */}
             <div className="mt-2 flex items-center gap-2 sm:hidden">
-              <span className="rounded-full bg-blue-50 text-blue-700 text-[11px] px-2 py-0.5 shrink-0">
+              <Badge variant="sky" tone="soft" size="xs">
                 {n.category.name}
-              </span>
+              </Badge>
               <span className="text-gray-800 line-clamp-1">{n.title}</span>
             </div>
 
@@ -50,24 +51,17 @@ export default function NewsList({ news, limit }: Props) {
 
             {/* PC：中央 = カテゴリ＋タイトル（可変幅） */}
             <span className="hidden sm:inline-flex sm:items-center sm:gap-2 sm:min-w-0 sm:flex-1">
-              <span className="rounded-full bg-blue-50 text-blue-700 text-xs px-2 py-0.5 shrink-0">
+              <Badge variant="sky" tone="soft" size="sm" className="shrink-0">
                 {n.category.name}
-              </span>
+              </Badge>
               <span className="text-gray-800 truncate">{n.title}</span>
             </span>
 
             {/* NEW：モバイルはカード右上に絶対配置、PCは行末（右端） */}
             {idx === 0 && (
-              <span
-                className="
-              absolute top-3 right-3
-              sm:static sm:ml-auto   /* ← PCでは行末へ */
-              inline-flex items-center rounded-full bg-sky-100 px-2 py-0.5 
-              text-[11px] sm:text-xs font-medium text-sky-700
-            "
-              >
+              <Badge variant="rose" tone="soft" size="sm">
                 NEW
-              </span>
+              </Badge>
             )}
           </Link>
         </li>
