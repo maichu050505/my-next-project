@@ -1,17 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { BuildingOffice2Icon, CodeBracketIcon, ChartBarIcon } from "@heroicons/react/24/outline";
-import Button from "@/app/_components/ui/Button";
-
-type News = {
-  id: string;
-  title: string;
-  category: {
-    name: string;
-  };
-  publishedAt: string;
-  createdAt: string;
-};
+import Button from "@/_components/ui/Button";
+import NewsList from "@/_components/news/NewsList";
+import { News } from "@/app/_libs/microcms";
 
 const data: {
   contents: News[];
@@ -94,64 +86,7 @@ export default function Home() {
           {/* 見出しは中央寄せ */}
           <h2 className="text-center text-xl sm:text-2xl md:text-3xl font-semibold">お知らせ</h2>
 
-          <ul className="mt-6 sm:mt-8 divide-y divide-gray-100 rounded-2xl border border-gray-100 bg-white shadow-sm">
-            {news.map((n, idx) => (
-              <li key={n.id} className="group relative">
-                <Link
-                  href={`/news/${n.id}`}
-                  className="block px-5 py-4 hover:bg-gray-50 transition"
-                >
-                  {/* スマホ: 日付だけ1行目 */}
-                  <time
-                    dateTime={normalizeDate(n.publishedAt)}
-                    className="block text-xs sm:hidden tabular-nums text-gray-500"
-                    aria-label={`掲載日 ${n.publishedAt}`}
-                  >
-                    {n.publishedAt}
-                  </time>
-
-                  {/* スマホ: 2行目 = カテゴリ＋タイトル */}
-                  <div className="mt-2 sm:hidden flex items-center gap-2">
-                    <span className="rounded-full bg-blue-50 text-blue-700 text-[11px] px-2 py-0.5 shrink-0">
-                      {n.category.name}
-                    </span>
-                    <span className="text-gray-800 line-clamp-1">{n.title}</span>
-                  </div>
-
-                  {/* PC: 横並び */}
-                  <div className="hidden sm:flex sm:items-center sm:gap-4">
-                    <time
-                      dateTime={normalizeDate(n.publishedAt)}
-                      className="text-sm tabular-nums text-gray-500 w-28 shrink-0"
-                      aria-label={`掲載日 ${n.publishedAt}`}
-                    >
-                      {n.publishedAt}
-                    </time>
-                    <span className="flex-1 inline-flex items-center gap-2 min-w-0">
-                      <span className="rounded-full bg-blue-50 text-blue-700 text-xs px-2 py-0.5 shrink-0">
-                        {n.category.name}
-                      </span>
-                      <span className="text-gray-800 truncate">{n.title}</span>
-                    </span>
-                  </div>
-
-                  {/* NEW バッジ: スマホでは右上固定、PCは右端 */}
-                  {idx === 0 && (
-                    <span
-                      className="
-              absolute top-3 right-3
-              sm:static sm:ml-auto
-              inline-flex items-center rounded-full bg-sky-100 px-2 py-0.5 
-              text-[11px] sm:text-xs font-medium text-sky-700
-            "
-                    >
-                      NEW
-                    </span>
-                  )}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <NewsList news={data.contents} limit={2} />
 
           {/* セクション最後に「一覧を見る」ボタン（中央） */}
           <div className="mt-8 flex justify-center">
@@ -225,7 +160,7 @@ export default function Home() {
               要件整理からリリースまで伴走いたします。
             </p>
           </div>
-          <Button href="/contact" variant="primary" size="lg">
+          <Button href="/contact" variant="secondary" size="lg">
             お問い合わせ
           </Button>
         </div>
