@@ -4,7 +4,7 @@ import Badge from "@/_components/ui/Badge";
 
 type Props = {
   news: News[];
-  limit?: number; // ← TOPでは2件, /newsでは全件
+  limit?: number;
 };
 
 const normalizeDate = (s: string) => s.replaceAll("/", "-");
@@ -12,7 +12,7 @@ const normalizeDate = (s: string) => s.replaceAll("/", "-");
 export default function NewsList({ news, limit }: Props) {
   const items = limit ? news.slice(0, limit) : news;
 
-  if (news.length === 0) {
+  if (items.length === 0) {
     return <p className="text-center mt-6">記事がありません。</p>;
   }
 
@@ -22,8 +22,7 @@ export default function NewsList({ news, limit }: Props) {
         <li key={n.id} className="group relative">
           <Link
             href={`/news/${n.id}`}
-            className="block px-5 py-4 hover:bg-gray-50 transition
-                   sm:flex sm:items-center sm:gap-4"
+            className="block px-5 py-4 hover:bg-gray-50 transition sm:flex sm:items-center sm:gap-4"
           >
             {/* モバイル：1行目 = 日付 */}
             <time
@@ -41,25 +40,42 @@ export default function NewsList({ news, limit }: Props) {
               <span className="text-gray-800 line-clamp-1">{n.title}</span>
             </div>
 
-            {/* PC：左 = 日付 */}
-            <time
-              dateTime={normalizeDate(n.publishedAt)}
-              className="hidden sm:block text-sm tabular-nums text-gray-500 w-28 shrink-0"
-            >
-              {n.publishedAt}
-            </time>
+            {/* PC：全部1行（左=日付 / 中央=カテゴリ+タイトル / 右=NEW） */}
+            <div className="hidden sm:flex sm:items-center sm:gap-4 sm:w-full">
+              <time
+                dateTime={normalizeDate(n.publishedAt)}
+                className="text-sm tabular-nums text-gray-500 w-28 shrink-0"
+              >
+                {n.publishedAt}
+              </time>
 
-            {/* PC：中央 = カテゴリ＋タイトル（可変幅） */}
-            <span className="hidden sm:inline-flex sm:items-center sm:gap-2 sm:min-w-0 sm:flex-1">
               <Badge variant="sky" tone="soft" size="sm" className="shrink-0">
                 {n.category.name}
               </Badge>
-              <span className="text-gray-800 truncate">{n.title}</span>
-            </span>
 
-            {/* NEW：モバイルはカード右上に絶対配置、PCは行末（右端） */}
+              <span className="text-gray-800 truncate flex-1">{n.title}</span>
+
+              {/* PC用 NEW（右端固定） */}
+              {idx === 0 && (
+                <Badge
+                  variant="rose"
+                  tone="soft"
+                  size="sm"
+                  className="hidden sm:inline-flex sm:ml-auto"
+                >
+                  NEW
+                </Badge>
+              )}
+            </div>
+
+            {/* モバイル用 NEW（カード右上固定） */}
             {idx === 0 && (
-              <Badge variant="rose" tone="soft" size="sm">
+              <Badge
+                variant="rose"
+                tone="soft"
+                size="xs"
+                className="absolute top-3 right-3 sm:hidden"
+              >
                 NEW
               </Badge>
             )}
