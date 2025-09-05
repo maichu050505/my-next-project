@@ -4,13 +4,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { navItems } from "@/app/_libs/navItems";
 
-const links = [
-  { href: "/works", label: "制作実績" },
-  { href: "/news", label: "お知らせ" },
-  { href: "/about", label: "会社概要" },
-  { href: "/contact", label: "お問い合わせ" },
-];
-
 export default function Header() {
   const [open, setOpen] = useState(false);
 

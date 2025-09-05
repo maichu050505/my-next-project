@@ -31,39 +31,28 @@ const data = {
 
 export default function MembersPage() {
   return (
-    <main className="bg-white text-gray-800">
-      <HeroSection
-        title="メンバー"
-        subtitle="Members"
-        background={{ type: "gradient" }} // 既定: sky→blue→indigo
-        heightClass="h-[30svh] min-h-[240px]"
-      />
-      <Breadcrumbs />
-
-      {/* CONTENT */}
-      <PageContentsSection>
-        {data.contents.length === 0 ? (
-          <p>メンバーが登録されていません。</p>
-        ) : (
-          <div className="flex flex-col gap-6">
-            {data.contents.map((member) => (
-              <div
-                key={member.id}
-                className="flex flex-col md:flex-row items-stretch overflow-hidden gap-6"
-              >
-                <div className="relative w-full aspect-square md:w-60 md:h-60">
-                  <Image src={member.image} alt={member.name} fill className="object-cover" />
-                </div>
-                <div className="flex-1 flex flex-col">
-                  <h2 className="text-xl mb-1 font-semibold">{member.name}</h2>
-                  <p className="text-sm text-gray-500">{member.role}</p>
-                  <p className="mt-3 text-gray-600 text-md flex-1">{member.bio}</p>
-                </div>
+    <>
+      {data.contents.length === 0 ? (
+        <p>メンバーが登録されていません。</p>
+      ) : (
+        <div className="flex flex-col gap-6">
+          {data.contents.map((member) => (
+            <div
+              key={member.id}
+              className="flex flex-col md:flex-row items-stretch overflow-hidden gap-6"
+            >
+              <div className="relative w-full aspect-square md:w-60 md:h-60">
+                <Image src={member.image} alt={member.name} fill className="object-cover" />
               </div>
-            ))}
-          </div>
-        )}
-      </PageContentsSection>
-    </main>
+              <div className="flex-1 flex flex-col">
+                <h2 className="text-xl mb-1 font-semibold">{member.name}</h2>
+                <p className="text-sm text-gray-500">{member.role}</p>
+                <p className="mt-3 text-gray-600 text-md flex-1">{member.bio}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </>
   );
 }
