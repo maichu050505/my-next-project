@@ -1,20 +1,16 @@
 import Breadcrumbs from "@/_components/ui/Breadcrumbs";
+import HeroSection from "@/_components/ui/HeroSection";
 
 export default function AboutPage() {
   return (
     <main className="bg-white text-gray-800">
-      {/* HERO */}
-      <section className="relative flex items-center justify-center bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-600 h-[30svh] min-h-[240px]">
-        <div className="relative z-10 mx-auto px-6 text-center">
-          <h1 className="font-bold tracking-tight text-white text-3xl sm:text-4xl md:text-5xl">
-            会社概要
-          </h1>
-          <p className="mt-4 text-white/90 text-sm sm:text-base">About Us</p>
-        </div>
-      </section>
-      <section className="mx-auto max-w-4xl px-5 sm:px-6 py-4 sm:py-4">
-        <Breadcrumbs />
-      </section>
+      <HeroSection
+        title="会社概要"
+        subtitle="About Us"
+        background={{ type: "gradient" }} // 既定: sky→blue→indigo
+        heightClass="h-[30svh] min-h-[240px]"
+      />
+      <Breadcrumbs />
 
       {/* CONTENT */}
       <section className="mx-auto max-w-4xl px-5 sm:px-6 py-16 sm:py-20">

@@ -44,30 +44,32 @@ export default function Breadcrumbs({ items, baseLabel = "ホーム", baseHref =
 
   return (
     <>
-      <nav aria-label="Breadcrumb" className="text-xs sm:text-sm">
-        <ol className="flex flex-wrap items-center gap-2 text-gray-500">
-          <li>
-            <Link href={baseHref} className="hover:text-sky-600">
-              {baseLabel}
-            </Link>
-          </li>
-          {computed.map((c, idx) => {
-            const isLast = idx === computed.length - 1;
-            return (
-              <li key={`${c.name}-${idx}`} className="flex items-center gap-2">
-                <span aria-hidden="true">&gt;</span>
-                {isLast || !c.href ? (
-                  <span className="text-gray-800">{c.name}</span>
-                ) : (
-                  <Link href={c.href} className="hover:text-sky-600">
-                    {c.name}
-                  </Link>
-                )}
-              </li>
-            );
-          })}
-        </ol>
-      </nav>
+      <section className="mx-auto max-w-4xl px-5 sm:px-6 py-4 sm:py-4">
+        <nav aria-label="Breadcrumb" className="text-xs sm:text-sm">
+          <ol className="flex flex-wrap items-center gap-2 text-gray-500">
+            <li>
+              <Link href={baseHref} className="hover:text-sky-600">
+                {baseLabel}
+              </Link>
+            </li>
+            {computed.map((c, idx) => {
+              const isLast = idx === computed.length - 1;
+              return (
+                <li key={`${c.name}-${idx}`} className="flex items-center gap-2">
+                  <span aria-hidden="true">&gt;</span>
+                  {isLast || !c.href ? (
+                    <span className="text-gray-800">{c.name}</span>
+                  ) : (
+                    <Link href={c.href} className="hover:text-sky-600">
+                      {c.name}
+                    </Link>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+        </nav>
+      </section>
 
       <script
         type="application/ld+json"
