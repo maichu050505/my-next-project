@@ -11,6 +11,9 @@ export default function Footer() {
           <Link href="/news" className="hover:text-sky-600 transition">
             お知らせ
           </Link>
+          <Link href="/about" className="hover:text-sky-600 transition">
+            会社概要
+          </Link>
           <Link href="/contact" className="hover:text-sky-600 transition">
             お問い合わせ
           </Link>

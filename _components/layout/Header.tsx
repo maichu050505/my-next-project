@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 const links = [
   { href: "/works", label: "制作実績" },
   { href: "/news", label: "お知らせ" },
+  { href: "/about", label: "会社概要" },
   { href: "/contact", label: "お問い合わせ" },
 ];
 
