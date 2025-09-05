@@ -1,3 +1,5 @@
+import Breadcrumbs from "@/_components/ui/Breadcrumbs";
+
 export default function AboutPage() {
   return (
     <main className="bg-white text-gray-800">
@@ -9,6 +11,9 @@ export default function AboutPage() {
           </h1>
           <p className="mt-4 text-white/90 text-sm sm:text-base">About Us</p>
         </div>
+      </section>
+      <section className="mx-auto max-w-4xl px-5 sm:px-6 py-4 sm:py-4">
+        <Breadcrumbs />
       </section>
 
       {/* CONTENT */}

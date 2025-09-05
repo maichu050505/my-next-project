@@ -1,0 +1,79 @@
+"use client";
+
+import Link from "next/link";
+import { useMemo } from "react";
+import { usePathname } from "next/navigation";
+
+type Crumb = { name: string; href?: string };
+type Props = {
+  items?: Crumb[]; // 省略時は自動生成
+  baseLabel?: string; // 既定: 「ホーム」
+  baseHref?: string; // 既定: ">"
+};
+
+const labelMap: Record<string, string> = {
+  about: "会社概要",
+  news: "お知らせ",
+  works: "制作実績",
+  contact: "お問い合わせ",
+};
+
+function autoCrumbs(pathname: string): Crumb[] {
+  const segs = pathname.split("/").filter(Boolean);
+  return segs.map((s, i) => {
+    const href = "/" + segs.slice(0, i + 1).join("/");
+    const name = labelMap[s] ?? decodeURIComponent(s);
+    return { name, href };
+  });
+}
+
+export default function Breadcrumbs({ items, baseLabel = "ホーム", baseHref = "/" }: Props) {
+  const pathname = usePathname();
+  const computed = useMemo(() => items ?? autoCrumbs(pathname), [items, pathname]);
+
+  // JSON-LD
+  const jsonLd = useMemo(() => {
+    const list = [{ name: baseLabel, href: baseHref }, ...computed].map((c, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: c.name,
+      item: c.href || undefined,
+    }));
+    return { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: list };
+  }, [computed, baseHref, baseLabel]);
+
+  return (
+    <>
+      <nav aria-label="Breadcrumb" className="text-xs sm:text-sm">
+        <ol className="flex flex-wrap items-center gap-2 text-gray-500">
+          <li>
+            <Link href={baseHref} className="hover:text-sky-600">
+              {baseLabel}
+            </Link>
+          </li>
+          {computed.map((c, idx) => {
+            const isLast = idx === computed.length - 1;
+            return (
+              <li key={`${c.name}-${idx}`} className="flex items-center gap-2">
+                <span aria-hidden="true">&gt;</span>
+                {isLast || !c.href ? (
+                  <span className="text-gray-800">{c.name}</span>
+                ) : (
+                  <Link href={c.href} className="hover:text-sky-600">
+                    {c.name}
+                  </Link>
+                )}
+              </li>
+            );
+          })}
+        </ol>
+      </nav>
+
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+    </>
+  );
+}

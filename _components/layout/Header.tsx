@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { navItems } from "@/app/_libs/navItems";
 
 const links = [
   { href: "/works", label: "制作実績" },
@@ -47,7 +48,7 @@ export default function Header() {
 
         {/* デスクトップナビ */}
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-700">
-          {links.map((l) => (
+          {navItems.map((l) => (
             <Link key={l.href} href={l.href} className="hover:text-sky-600 transition">
               {l.label}
             </Link>
@@ -99,7 +100,7 @@ export default function Header() {
         }`}
       >
         <nav className="max-w-6xl mx-auto px-5 sm:px-6 py-4 flex flex-col gap-2 text-gray-800">
-          {links.map((l) => (
+          {navItems.map((l) => (
             <Link
               key={l.href}
               href={l.href}
