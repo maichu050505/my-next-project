@@ -33,9 +33,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <Header />
-      <body className="antialiased bg-white text-gray-800">{children}</body>
-      <Footer />
+      <body className="min-h-dvh bg-white text-gray-800">
+        <Header />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
