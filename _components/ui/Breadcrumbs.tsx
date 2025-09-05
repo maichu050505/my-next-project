@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useMemo } from "react";
 import { usePathname } from "next/navigation";
+import { labelMap } from "@/app/_libs/navItems";
 
 type Crumb = { name: string; href?: string };
 type Props = {
@@ -11,18 +12,12 @@ type Props = {
   baseHref?: string; // 既定: ">"
 };
 
-const labelMap: Record<string, string> = {
-  about: "会社概要",
-  news: "お知らせ",
-  works: "制作実績",
-  contact: "お問い合わせ",
-};
-
 function autoCrumbs(pathname: string): Crumb[] {
   const segs = pathname.split("/").filter(Boolean);
   return segs.map((s, i) => {
+    const key = s.toLowerCase(); // 予防的に小文字化
     const href = "/" + segs.slice(0, i + 1).join("/");
-    const name = labelMap[s] ?? decodeURIComponent(s);
+    const name = labelMap[key] ?? decodeURIComponent(s);
     return { name, href };
   });
 }
