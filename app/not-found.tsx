@@ -1,6 +1,7 @@
 import Breadcrumbs from "@/_components/ui/Breadcrumbs";
 import HeroSection from "@/_components/ui/HeroSection";
 import Button from "@/_components/ui/Button";
+import PageContentsSection from "@/_components/ui/PageContentsSection";
 
 export default function NotFound() {
   return (
@@ -16,7 +17,7 @@ export default function NotFound() {
         baseLabel="ホーム"
         baseHref="/"
       />
-      <section className="mx-auto max-w-4xl px-5 sm:px-6 py-16 sm:py-20">
+      <PageContentsSection>
         <p className="mt-4 text-lg text-gray-600 text-center">
           申し訳ございませんが、お探しのページは見つかりませんでした。
         </p>
@@ -26,7 +27,7 @@ export default function NotFound() {
             ホームに戻る
           </Button>
         </div>
-      </section>
+      </PageContentsSection>
     </main>
   );
 }

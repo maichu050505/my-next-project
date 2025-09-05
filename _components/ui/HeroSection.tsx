@@ -1,21 +1,15 @@
 import { ReactNode } from "react";
+import clsx from "clsx";
 
 type Props = {
-  /** ページの主見出し（h1） */
   title: string;
-  /** 補助テキスト（英語表記など） */
   subtitle?: string;
-  /** 中央 / 左寄せ 切り替え */
   align?: "center" | "left";
-  /** 高さ（svh 対応） */
   heightClass?: string; // 例: "h-[30svh] min-h-[240px]"
-  /** 背景: グラデーション or 画像 */
   background?:
     | { type: "gradient"; from?: string; via?: string; to?: string }
     | { type: "image"; url: string; overlay?: string };
-  /** 追加の子要素（パンくず・小要素などを置く） */
   children?: ReactNode;
-  /** 外から追加クラス */
   className?: string;
 };
 
@@ -31,25 +25,29 @@ export default function HeroSection({
     to: "to-indigo-600",
   },
   children,
-  className = "",
+  className,
 }: Props) {
-  const alignWrap =
-    align === "center"
-      ? "items-center justify-center text-center"
-      : "items-end justify-start text-left";
+  const isGradient = background.type === "gradient";
+  const isImage = background.type === "image";
 
-  const bgClass =
-    background.type === "gradient"
-      ? `bg-gradient-to-r ${background.from ?? "from-sky-400"} ${
-          background.via ?? "via-blue-500"
-        } ${background.to ?? "to-indigo-600"}`
-      : "";
+  const alignWrap = clsx(
+    "relative flex",
+    align === "center" && "items-center justify-center text-center",
+    align === "left" && "items-end justify-start text-left"
+  );
+
+  const bgClass = clsx(
+    isGradient && "bg-gradient-to-r",
+    isGradient && (background.from ?? "from-sky-400"),
+    isGradient && (background.via ?? "via-blue-500"),
+    isGradient && (background.to ?? "to-indigo-600")
+  );
 
   return (
     <section
-      className={`relative flex ${alignWrap} ${bgClass} ${heightClass} ${className}`}
+      className={clsx(alignWrap, bgClass, heightClass, className)}
       style={
-        background.type === "image"
+        isImage
           ? {
               backgroundImage: `url(${background.url})`,
               backgroundSize: "cover",
@@ -58,10 +56,9 @@ export default function HeroSection({
           : undefined
       }
     >
-      {/* 画像背景用のオーバーレイ */}
-      {background.type === "image" && (
+      {isImage && (
         <div
-          className={`absolute inset-0 ${background.overlay ?? "bg-black/40"}`}
+          className={clsx("absolute inset-0", background.overlay ?? "bg-black/40")}
           aria-hidden="true"
         />
       )}
@@ -71,8 +68,6 @@ export default function HeroSection({
           {title}
         </h1>
         {subtitle && <p className="mt-4 text-white/90 text-sm sm:text-base">{subtitle}</p>}
-
-        {/* パンくず/タグなど任意で差し込める */}
         {children && <div className="mt-4">{children}</div>}
       </div>
     </section>

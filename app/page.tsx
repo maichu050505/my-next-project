@@ -4,6 +4,7 @@ import { BuildingOffice2Icon, CodeBracketIcon, ChartBarIcon } from "@heroicons/r
 import Button from "@/_components/ui/Button";
 import NewsList from "@/_components/news/NewsList";
 import { News } from "@/app/_libs/microcms";
+import HeroSection from "@/_components/ui/HeroSection";
 
 const data: {
   contents: News[];
@@ -69,16 +70,18 @@ export default function Home() {
   return (
     <main className="bg-white text-gray-800">
       {/* HERO */}
-      <section className="relative flex items-center justify-center overflow-hidden bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-600 h-[56svh] min-h-[420px] sm:h-[60svh] md:h-[70svh]">
-        <div className="relative z-10 mx-auto px-5 sm:px-6 text-center">
-          <h1 className="font-bold tracking-tight text-white drop-shadow text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
-            Design × Frontend that ships.
-          </h1>
-          <p className="mt-4 sm:mt-5 text-white/90 text-base sm:text-lg">
-            Next.js / Tailwind CSS / パフォーマンス改善までワンストップ対応
-          </p>
-        </div>
-      </section>
+      <HeroSection
+        title="Design × Frontend that ships."
+        subtitle="Next.js / Tailwind CSS / パフォーマンス改善までワンストップ対応"
+        background={{
+          type: "gradient",
+          from: "from-sky-400",
+          via: "via-blue-500",
+          to: "to-indigo-600",
+        }}
+        heightClass="h-[70svh] min-h-[500px] sm:h-[75svh] md:h-[60svh]"
+        className="animate-gradient" // ← Homeだけアニメーションを追加
+      />
 
       {/* NEWS / お知らせ */}
       <section className="bg-gray-50">
