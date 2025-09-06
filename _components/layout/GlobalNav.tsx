@@ -70,15 +70,6 @@ export default function GlobalNav({ items }: { items: Item[] }) {
         </svg>
       </button>
 
-      {/* 背景オーバーレイ */}
-      {open && (
-        <div
-          className="md:hidden fixed inset-0 z-40 bg-black/20"
-          onClick={() => setOpen(false)}
-          aria-hidden="true"
-        />
-      )}
-
       {/* モバイル：スライドパネル */}
       <div
         id={panelId}
