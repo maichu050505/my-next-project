@@ -1,47 +1,10 @@
 import Image from "next/image";
-import Link from "next/link";
 import { BuildingOffice2Icon, CodeBracketIcon, ChartBarIcon } from "@heroicons/react/24/outline";
 import Button from "@/_components/ui/Button";
 import NewsList from "@/_components/news/NewsList";
-import { News } from "@/app/_libs/microcms";
 import HeroSection from "@/_components/ui/HeroSection";
-
-const data: {
-  contents: News[];
-} = {
-  contents: [
-    {
-      id: "1",
-      title: "渋谷にオフィスを移転しました",
-      category: {
-        name: "更新情報",
-      },
-      publishedAt: "2025/09/03",
-      createdAt: "2025/09/03",
-    },
-    {
-      id: "2",
-      title: "当社CEOが業界リーダーTOP30に選出されました",
-      category: {
-        name: "更新情報",
-      },
-      publishedAt: "2025/09/02",
-      createdAt: "2025/09/02",
-    },
-    {
-      id: "3",
-      title: "テストの記事です",
-      category: {
-        name: "更新情報",
-      },
-      publishedAt: "2025/09/01",
-      createdAt: "2025/09/01",
-    },
-  ],
-};
-
-// "2025/09/03" -> "2025-09-03"（<time dateTime> 用）
-const normalizeDate = (s: string) => s.replaceAll("/", "-");
+import { getNewsList } from "@/app/_libs/microcms";
+import { TOP_NEWS_LIMIT } from "@/app/_constants";
 
 const services = [
   {
@@ -61,11 +24,10 @@ const services = [
   },
 ];
 
-export default function Home() {
-  // 新しい順に並べ替え（publishedAt は同じ桁数なので文字列比較でOK）
-  const news = [...data.contents]
-    .sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1))
-    .slice(0, 2); // ← ここで2件に制限
+export default async function Home() {
+  const data = await getNewsList({
+    limit: TOP_NEWS_LIMIT,
+  });
 
   return (
     <main className="bg-white text-gray-800">
@@ -89,7 +51,7 @@ export default function Home() {
           {/* 見出しは中央寄せ */}
           <h2 className="text-center text-xl sm:text-2xl md:text-3xl font-semibold">お知らせ</h2>
 
-          <NewsList news={data.contents} limit={2} />
+          <NewsList news={data.contents} />
 
           {/* セクション最後に「一覧を見る」ボタン（中央） */}
           <div className="mt-8 flex justify-center">
