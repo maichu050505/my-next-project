@@ -1,26 +1,15 @@
-type DateProps = {
-  date: string; // "2025/09/03" のような形式
-  className?: string;
-  srLabel?: string; // スクリーンリーダー用ラベル
-};
+import { formatDate, toIso } from "@/app/_libs/utils";
 
-// "2025/09/03" -> "2025-09-03" (<time dateTime> 用)
-const normalizeDate = (s: string) => s.replaceAll("/", "-");
+type Props = { date: string | Date; className?: string; srLabel?: string };
 
-// "2025/09/03" → "2025年9月3日"
-const formatDate = (s: string) => {
-  const [yyyy, mm, dd] = s.split("/");
-  return `${yyyy}年${Number(mm)}月${Number(dd)}日`;
-};
+export default function PublishedDate({ date, className, srLabel }: Props) {
+  const label = formatDate(date); // 例: "2025年9月7日"
+  const iso = toIso(date);
+  if (!label) return null;
 
-export default function PublishedDate({ date, className, srLabel }: DateProps) {
   return (
-    <time
-      dateTime={normalizeDate(date)}
-      className={className}
-      aria-label={srLabel ? srLabel : `掲載日 ${formatDate(date)}`}
-    >
-      {formatDate(date)}
+    <time dateTime={iso} className={className} aria-label={srLabel ?? `掲載日 ${label}`}>
+      {label}
     </time>
   );
 }
