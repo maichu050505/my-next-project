@@ -10,7 +10,7 @@ export default function RootLayout({ children }: Props) {
   return (
     <main className="bg-white text-gray-800">
       <HeroSection
-        title="ニュース"
+        title="お知らせ"
         subtitle="News"
         background={{ type: "gradient" }} // 既定: sky→blue→indigo
         heightClass="h-[30svh] min-h-[240px]"
