@@ -18,7 +18,7 @@ export default function PageContentsSection({
   align = "center",
   maxWidthClass = "max-w-4xl",
   paddingXClass = "px-5 sm:px-6",
-  paddingYClass = "py-8 sm:py-20",
+  paddingYClass = "",
   className,
   children,
 }: Props) {

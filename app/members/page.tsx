@@ -1,11 +1,13 @@
 import Image from "next/image";
 import { getMembersList } from "@/app/_libs/microcms";
 import { MEMBERS_LIST_LIMIT } from "@/app/_constants";
+import Breadcrumbs from "@/_components/ui/Breadcrumbs";
 
 export default async function MembersPage() {
   const data = await getMembersList({ limit: MEMBERS_LIST_LIMIT });
   return (
     <>
+      <Breadcrumbs />
       {data.contents.length === 0 ? (
         <p>メンバーが登録されていません。</p>
       ) : (

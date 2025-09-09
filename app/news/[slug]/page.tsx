@@ -2,9 +2,9 @@ import { notFound } from "next/navigation";
 import { getNewsDetail } from "@/app/_libs/microcms";
 import Article from "@/_components/news/Article";
 import Button from "@/_components/ui/Button";
+import Breadcrumbs from "@/_components/ui/Breadcrumbs";
 
 type Props = {
-  // ★ Next.js 15 では Promise になります
   params: Promise<{ slug: string }>;
 };
 
@@ -20,6 +20,7 @@ export default async function Page({ params }: Props) {
 
   return (
     <>
+      <Breadcrumbs items={[{ name: "お知らせ", href: "/news" }, { name: data.title }]} />
       <Article data={data} />
       <div className="mt-10 text-center">
         <Button href="/news">お知らせ一覧へ</Button>
