@@ -39,7 +39,7 @@ export default function Breadcrumbs({ items, baseLabel = "ホーム", baseHref =
 
   return (
     <>
-      <div className="mx-auto max-w-4xl px-5 sm:px-6 py-4 sm:py-4">
+      <div className="mx-auto max-w-4xl sm: py-4 sm:py-4">
         <nav aria-label="Breadcrumb" className="text-xs sm:text-sm">
           <ol className="flex flex-wrap items-center gap-2 text-gray-500">
             <li>
