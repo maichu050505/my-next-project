@@ -3,6 +3,7 @@ import { getNewsList } from "@/app/_libs/microcms";
 import NewsList from "@/_components/news/NewsList";
 import Breadcrumbs from "@/_components/ui/Breadcrumbs";
 import { NEWS_LIST_LIMIT } from "@/app/_constants";
+import Pagination from "@/_components/ui/Pagination";
 
 type Props = {
   params: Promise<{ current: string }>;
@@ -14,7 +15,7 @@ export default async function NewsPage({ params }: Props) {
   if (current === 1) redirect("/news"); // 任意: /news/p/1 → /news
   const limit = NEWS_LIST_LIMIT;
   const offset = limit * (current - 1);
-  const { contents: news } = await getNewsList({
+  const { contents: news, totalCount } = await getNewsList({
     limit,
     offset,
     orders: "-publishedAt",
@@ -24,6 +25,7 @@ export default async function NewsPage({ params }: Props) {
     <>
       <Breadcrumbs items={[{ name: "ニュース", href: "/news" }]} />
       <NewsList news={news} />
+      <Pagination totalCount={totalCount} />
     </>
   );
 }

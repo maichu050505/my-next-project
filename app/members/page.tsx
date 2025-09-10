@@ -9,9 +9,9 @@ export default async function MembersPage() {
     <>
       <Breadcrumbs />
       {data.contents.length === 0 ? (
-        <p>メンバーが登録されていません。</p>
+        <p className="mt-10">メンバーが登録されていません。</p>
       ) : (
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6 mt-10">
           {data.contents.map((member) => (
             <div
               key={member.id}

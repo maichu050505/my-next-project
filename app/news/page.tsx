@@ -2,9 +2,10 @@ import { getNewsList } from "@/app/_libs/microcms";
 import NewsList from "@/_components/news/NewsList";
 import Breadcrumbs from "@/_components/ui/Breadcrumbs";
 import { NEWS_LIST_LIMIT } from "@/app/_constants";
+import Pagination from "@/_components/ui/Pagination";
 
 export default async function NewsPage() {
-  const { contents: news } = await getNewsList({
+  const { contents: news, totalCount } = await getNewsList({
     limit: NEWS_LIST_LIMIT,
     orders: "-publishedAt",
   });
@@ -12,6 +13,7 @@ export default async function NewsPage() {
     <>
       <Breadcrumbs />
       <NewsList news={news} />
+      <Pagination totalCount={totalCount} />
     </>
   );
 }
