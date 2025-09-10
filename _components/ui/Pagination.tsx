@@ -6,14 +6,20 @@ type Props = {
   totalCount: number;
   current?: number;
   className?: string;
+  basePath?: string;
 };
 
-export default function Pagination({ totalCount, current = 1, className }: Props) {
+export default function Pagination({
+  totalCount,
+  current = 1,
+  basePath = "/news",
+  className,
+}: Props) {
   const totalPages = Math.max(1, Math.ceil(totalCount / NEWS_LIST_LIMIT));
   if (totalPages <= 1) return null;
 
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
-  const toHref = (p: number) => (p === 1 ? "/news" : `/news/p/${p}`);
+  const toHref = (p: number) => (p === 1 ? basePath : `${basePath}/p/${p}`);
   const hasPrev = current > 1;
   const hasNext = current < totalPages;
 

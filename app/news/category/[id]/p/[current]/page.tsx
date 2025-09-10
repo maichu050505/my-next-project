@@ -4,14 +4,20 @@ import Breadcrumbs from "@/_components/ui/Breadcrumbs";
 import { notFound } from "next/navigation";
 import Button from "@/_components/ui/Button";
 import { NEWS_LIST_LIMIT } from "@/app/_constants";
+import Pagination from "@/_components/ui/Pagination";
 
-type Props = { params: Promise<{ id: string }> };
+type Props = { params: Promise<{ id: string; current: string; basePath?: string }> };
 
 export default async function NewsPage({ params }: Props) {
-  const { id } = await params;
+  const { id, current: currentStr } = await params;
+  const current = Number.parseInt(currentStr, 10);
+  if (!Number.isFinite(current) || current < 1) notFound();
+
   const category = await getCategoryDetail(id).catch(() => notFound());
-  const { contents: news } = await getNewsList({
+
+  const { contents: news, totalCount } = await getNewsList({
     limit: NEWS_LIST_LIMIT,
+    offset: NEWS_LIST_LIMIT * (current - 1),
     filters: `category[equals]${category.id}`,
     orders: "-publishedAt",
   });
@@ -20,6 +26,11 @@ export default async function NewsPage({ params }: Props) {
       <Breadcrumbs items={[{ name: "ニュース", href: "/news" }, { name: category.name }]} />
       <p className="mt-6 sm:mt-8 text-xl font-bold">{category.name}</p>
       <NewsList news={news} />
+      <Pagination
+        totalCount={totalCount}
+        current={current}
+        basePath={`/news/category/${category.id}`}
+      />
       <div className="mt-10 text-center">
         <Button href="/news">ニュース一覧へ</Button>
       </div>
