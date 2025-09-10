@@ -10,7 +10,7 @@ export default async function RootLayout({ children }: Props) {
   return (
     <main className="bg-white text-gray-800">
       <HeroSection
-        title="お知らせ"
+        title="ニュース"
         subtitle="News"
         background={{ type: "gradient" }} // 既定: sky→blue→indigo
         heightClass="h-[30svh] min-h-[240px]"

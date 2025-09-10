@@ -10,20 +10,14 @@ type Props = {
 
 export default async function Page({ params }: Props) {
   const { slug } = await params;
-
-  let data;
-  try {
-    data = await getNewsDetail(slug);
-  } catch {
-    notFound();
-  }
+  const data = await getNewsDetail(slug).catch(() => notFound());
 
   return (
     <>
-      <Breadcrumbs items={[{ name: "お知らせ", href: "/news" }, { name: data.title }]} />
+      <Breadcrumbs items={[{ name: "ニュース", href: "/news" }, { name: data.title }]} />
       <Article data={data} />
       <div className="mt-10 text-center">
-        <Button href="/news">お知らせ一覧へ</Button>
+        <Button href="/news">ニュース一覧へ</Button>
       </div>
     </>
   );

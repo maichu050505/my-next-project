@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 import type { News } from "@/app/_libs/microcms";
 import Badge from "@/_components/ui/Badge";
@@ -30,14 +31,15 @@ export default function Article({ data }: Props) {
 
       {/* 見出し・メタ */}
       <header className={hasThumb ? "mt-6 sm:mt-8 mb-12 sm:mb-16" : "mb-12 sm:mb-16"}>
-        <h1 className="mb-3 sm:mb-4 text-2xl sm:text-2xl md:text-3xl font-bold leading-tight tracking-tight text-gray-900 leading-9">
+        <h1 className="mb-3 sm:mb-4 text-2xl sm:text-2xl md:text-3xl font-bold tracking-tight text-gray-900 leading-9">
           {data.title}
         </h1>
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm">
-          <Badge variant="sky" tone="soft" size="sm">
-            {categoryName}
-          </Badge>
-          <span className="hidden sm:inline text-gray-300">•</span>
+          <Link href={`/news/category/${data.category.id}`}>
+            <Badge variant="sky" tone="soft" size="sm">
+              {categoryName}
+            </Badge>
+          </Link>
           <PublishedDate date={date} className="text-gray-500" />
         </div>
 
