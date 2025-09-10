@@ -52,12 +52,12 @@ export default function Breadcrumbs({ items, baseLabel = "ホーム", baseHref =
               return (
                 <li key={`${c.name}-${idx}`} className="flex items-center gap-2">
                   <span aria-hidden="true">&gt;</span>
-                  {isLast || !c.href ? (
-                    <span className="text-gray-800">{c.name}</span>
-                  ) : (
+                  {c.href ? (
                     <Link href={c.href} className="hover:text-sky-600">
                       {c.name}
                     </Link>
+                  ) : (
+                    <span className="text-gray-800">{c.name}</span>
                   )}
                 </li>
               );

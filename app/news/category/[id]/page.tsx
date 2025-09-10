@@ -3,6 +3,7 @@ import NewsList from "@/_components/news/NewsList";
 import Breadcrumbs from "@/_components/ui/Breadcrumbs";
 import { notFound } from "next/navigation";
 import Button from "@/_components/ui/Button";
+import { NEWS_LIST_LIMIT } from "@/app/_constants";
 
 type Props = { params: Promise<{ id: string }> };
 
@@ -10,6 +11,7 @@ export default async function NewsPage({ params }: Props) {
   const { id } = await params;
   const category = await getCategoryDetail(id).catch(() => notFound());
   const { contents: news } = await getNewsList({
+    limit: NEWS_LIST_LIMIT,
     filters: `category[equals]${category.id}`,
     orders: "-publishedAt",
   });
