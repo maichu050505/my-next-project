@@ -25,7 +25,7 @@ export default async function NewsPage({ params }: Props) {
     <>
       <Breadcrumbs items={[{ name: "ニュース", href: "/news" }]} />
       <NewsList news={news} />
-      <Pagination totalCount={totalCount} />
+      <Pagination totalCount={totalCount} current={current} />
     </>
   );
 }
