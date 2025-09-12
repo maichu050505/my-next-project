@@ -28,3 +28,11 @@ body {
   background-size: 200% 200%;
   animation: gradient-move 3s ease infinite;
 }
+
+/* WebKit系の検索入力の「×」を隠す */
+#search-input::-webkit-search-cancel-button,
+#search-input::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
