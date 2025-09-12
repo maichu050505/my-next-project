@@ -1,8 +1,8 @@
 import { Suspense } from "react";
 import Breadcrumbs from "@/_components/ui/Breadcrumbs";
-import Pagination from "@/_components/ui/Pagination";
 import SearchField from "@/_components/ui/SearchField";
 import Results from "@/app/news/search/Results";
+import ResultsSkeleton from "@/_components/news/ResultsSkeleton";
 
 export const revalidate = 0; // 即時反映
 
@@ -22,7 +22,7 @@ export default async function NewsSearchPage({ searchParams }: Props) {
         <Breadcrumbs items={[{ name: "ニュース", href: "/news" }]} />
       )}
       <SearchField />
-      <Suspense key={q} fallback={<div className="mt-6 animate-pulse text-gray-400">検索中…</div>}>
+      <Suspense key={q} fallback={<ResultsSkeleton showHeading={!!(q ?? "").trim()} />}>
         <Results q={q} />
       </Suspense>
     </>

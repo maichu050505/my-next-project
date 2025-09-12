@@ -4,7 +4,9 @@ import NewsList from "@/_components/news/NewsList";
 import Pagination from "@/_components/ui/Pagination";
 import { NEWS_LIST_LIMIT } from "@/app/_constants";
 
-export default async function Results({ q }: { q?: string }) {
+type Props = { q?: string; current?: number };
+
+export default async function Results({ q, current = 1 }: Props) {
   const { contents: news, totalCount } = await getNewsList({
     q,
     limit: NEWS_LIST_LIMIT,
@@ -20,7 +22,7 @@ export default async function Results({ q }: { q?: string }) {
         </p>
       )}
       <NewsList news={news} />
-      <Pagination totalCount={totalCount} current={1} basePath="/news/search" query={{ q }} />
+      <Pagination totalCount={totalCount} current={current} basePath="/news/search" query={{ q }} />
     </>
   );
 }

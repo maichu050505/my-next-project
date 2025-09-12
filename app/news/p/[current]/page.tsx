@@ -4,6 +4,7 @@ import NewsList from "@/_components/news/NewsList";
 import Breadcrumbs from "@/_components/ui/Breadcrumbs";
 import { NEWS_LIST_LIMIT } from "@/app/_constants";
 import Pagination from "@/_components/ui/Pagination";
+import SearchField from "@/_components/ui/SearchField";
 
 type Props = {
   params: Promise<{ current: string }>;
@@ -24,6 +25,7 @@ export default async function NewsPage({ params }: Props) {
   return (
     <>
       <Breadcrumbs items={[{ name: "ニュース", href: "/news" }]} />
+      <SearchField />
       <NewsList news={news} />
       <Pagination totalCount={totalCount} current={current} />
     </>
