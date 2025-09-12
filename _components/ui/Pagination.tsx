@@ -7,6 +7,7 @@ type Props = {
   current?: number;
   className?: string;
   basePath?: string;
+  query?: Record<string, string | undefined>; // ?q=... を引き継ぐ
 };
 
 export default function Pagination({
@@ -14,12 +15,25 @@ export default function Pagination({
   current = 1,
   basePath = "/news",
   className,
+  query,
 }: Props) {
   const totalPages = Math.max(1, Math.ceil(totalCount / NEWS_LIST_LIMIT));
   if (totalPages <= 1) return null;
 
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
-  const toHref = (p: number) => (p === 1 ? basePath : `${basePath}/p/${p}`);
+
+  // クエリ文字列を組み立て（空や undefined は除外）
+  const qs = (() => {
+    if (!query) return "";
+    const p = new URLSearchParams();
+    Object.entries(query).forEach(([k, v]) => {
+      if (v != null && v !== "") p.set(k, v);
+    });
+    const s = p.toString();
+    return s ? `?${s}` : "";
+  })();
+
+  const toHref = (p: number) => (p === 1 ? `${basePath}${qs}` : `${basePath}/p/${p}${qs}`);
   const hasPrev = current > 1;
   const hasNext = current < totalPages;
 
