@@ -82,36 +82,6 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* WORKS */}
-      <section className="bg-gray-50">
-        <div className="mx-auto max-w-6xl px-5 sm:px-6 py-20 md:py-24">
-          {/* 見出し中央寄せ */}
-          <h2 className="text-center text-xl sm:text-2xl md:text-3xl font-semibold">制作実績</h2>
-
-          <ul className="mt-6 sm:mt-8 grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-            {[1, 2, 3].map((i) => (
-              <li
-                key={i}
-                className="group rounded-2xl border border-gray-100 bg-white overflow-hidden shadow-sm hover:shadow-md transition"
-              >
-                <div className="relative aspect-[4/3] bg-gray-100" />
-                <div className="p-4">
-                  <h3 className="font-semibold">プロジェクト {i}</h3>
-                  <p className="mt-1 text-sm text-gray-600">コーポレート / フロントエンド</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-
-          {/* セクション最後に「一覧を見る」ボタン */}
-          <div className="mt-8 flex justify-center">
-            <Button href="/works" variant="secondary" size="lg">
-              一覧を見る
-            </Button>
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
       <section className="mx-auto max-w-6xl px-5 sm:px-6 pb-20 md:pb-24">
         <div className="rounded-2xl bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-600 text-white p-6 sm:p-8 md:p-12 flex flex-col md:flex-row md:items-center md:justify-between gap-4 sm:gap-6 shadow-sm">
