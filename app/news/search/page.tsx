@@ -21,8 +21,10 @@ export default async function NewsSearchPage({ searchParams }: Props) {
       ) : (
         <Breadcrumbs items={[{ name: "ニュース", href: "/news" }]} />
       )}
-      <SearchField />
-      <Suspense key={q} fallback={<ResultsSkeleton showHeading={!!(q ?? "").trim()} />}>
+      <Suspense fallback={null}>
+        <SearchField />
+      </Suspense>
+      <Suspense key={q} fallback={<ResultsSkeleton showHeading={!!keyword} />}>
         <Results q={q} />
       </Suspense>
     </>
