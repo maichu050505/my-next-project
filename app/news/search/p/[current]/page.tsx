@@ -21,7 +21,7 @@ export default async function NewsSearchPaged({ params, searchParams }: Props) {
   const current = Number.parseInt(currentStr, 10);
   if (!Number.isFinite(current) || current < 1) notFound();
 
-  const { contents: news, totalCount } = await getNewsList({
+  const { contents: news } = await getNewsList({
     q,
     limit: NEWS_LIST_LIMIT,
     offset: NEWS_LIST_LIMIT * (current - 1),
@@ -38,12 +38,7 @@ export default async function NewsSearchPaged({ params, searchParams }: Props) {
 
   return (
     <>
-      <Breadcrumbs
-        items={[
-          { name: "ニュース", href: "/news" },
-          ...(keyword ? [{ name: `「${keyword}」の検索結果` }] : []),
-        ]}
-      />
+      <Breadcrumbs items={crumbs} />
       <Suspense fallback={null}>
         <SearchField />
       </Suspense>

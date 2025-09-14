@@ -1,4 +1,3 @@
-// app/news/category/[id]/search/p/[current]/page.tsx
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import Breadcrumbs from "@/_components/ui/Breadcrumbs";

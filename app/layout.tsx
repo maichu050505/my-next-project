@@ -32,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja">
+    <html lang="ja" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body className="min-h-dvh bg-white text-gray-800">
         <Header />
         {children}

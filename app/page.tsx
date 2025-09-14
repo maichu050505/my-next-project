@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { BuildingOffice2Icon, CodeBracketIcon, ChartBarIcon } from "@heroicons/react/24/outline";
 import Button from "@/_components/ui/Button";
 import NewsList from "@/_components/news/NewsList";

@@ -1,5 +1,4 @@
 import HeroSection from "@/_components/ui/HeroSection";
-import Breadcrumbs from "@/_components/ui/Breadcrumbs";
 import PageContentsSection from "@/_components/ui/PageContentsSection";
 
 type Props = {

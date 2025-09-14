@@ -1,4 +1,4 @@
-import { notFound, useSearchParams } from "next/navigation";
+import { notFound } from "next/navigation";
 import { getNewsDetail } from "@/app/_libs/microcms";
 import Article from "@/_components/news/Article";
 import Button from "@/_components/ui/Button";
