@@ -5,6 +5,7 @@ import Breadcrumbs from "@/_components/ui/Breadcrumbs";
 import { NEWS_LIST_LIMIT } from "@/app/_constants";
 import Pagination from "@/_components/ui/Pagination";
 import SearchField from "@/_components/ui/SearchField";
+import { Suspense } from "react";
 
 type Props = {
   params: Promise<{ current: string }>;
@@ -25,7 +26,9 @@ export default async function NewsPage({ params }: Props) {
   return (
     <>
       <Breadcrumbs items={[{ name: "ニュース", href: "/news" }]} />
-      <SearchField />
+      <Suspense fallback={null}>
+        <SearchField baseHref="/news/search" />
+      </Suspense>
       <NewsList news={news} />
       <Pagination totalCount={totalCount} current={current} />
     </>

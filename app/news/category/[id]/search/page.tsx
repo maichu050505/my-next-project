@@ -24,7 +24,9 @@ export default async function CategorySearchPage({ params, searchParams }: Props
           ...(keyword ? [{ name: `「${keyword}」の検索結果` }] : []),
         ]}
       />
-      <SearchField baseHref={`/news/category/${category.id}/search`} />
+      <Suspense fallback={null}>
+        <SearchField baseHref={`/news/category/${category.id}/search`} />
+      </Suspense>
       <Suspense
         key={`${id}-${q ?? ""}`}
         fallback={<ResultsSkeleton showHeading={!!(q ?? "").trim()} />}

@@ -6,6 +6,7 @@ import Button from "@/_components/ui/Button";
 import { NEWS_LIST_LIMIT } from "@/app/_constants";
 import Pagination from "@/_components/ui/Pagination";
 import SearchField from "@/_components/ui/SearchField";
+import { Suspense } from "react";
 
 type Props = { params: Promise<{ id: string }> };
 
@@ -20,7 +21,9 @@ export default async function NewsPage({ params }: Props) {
   return (
     <>
       <Breadcrumbs items={[{ name: "ニュース", href: "/news" }, { name: category.name }]} />
-      <SearchField baseHref={`/news/category/${category.id}/search`} />
+      <Suspense fallback={null}>
+        <SearchField baseHref={`/news/category/${category.id}/search`} />
+      </Suspense>
       <p className="mt-6 sm:mt-8 text-xl font-bold">{category.name}</p>
       <NewsList news={news} />
       <Pagination totalCount={totalCount} current={1} basePath={`/news/category/${category.id}`} />

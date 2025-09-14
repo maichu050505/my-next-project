@@ -44,7 +44,9 @@ export default async function NewsSearchPaged({ params, searchParams }: Props) {
           ...(keyword ? [{ name: `「${keyword}」の検索結果` }] : []),
         ]}
       />
-      <SearchField /> {/* 既定で /news/search に遷移 */}
+      <Suspense fallback={null}>
+        <SearchField />
+      </Suspense>
       <Suspense
         key={`${q}-${current}`}
         fallback={<ResultsSkeleton showHeading={!!(q ?? "").trim()} />}
