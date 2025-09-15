@@ -57,6 +57,12 @@ export const getNewsDetail = async (contentId: string, queries?: MicroCMSQueries
     endpoint: "news",
     contentId,
     queries,
+    // 追加 draftKeyが指定されていないときは60, 指定されているときは0をセット。これにより、下書きプレビューの時だけSSR、それ以外はISR
+    customRequestInit: {
+      next: {
+        revalidate: queries?.draftKey === undefined ? 60 : 0,
+      },
+    },
   });
   return detailData;
 };
