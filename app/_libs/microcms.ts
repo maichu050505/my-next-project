@@ -1,3 +1,4 @@
+import "server-only"; // APIキーが漏れないよう、サーバー側からしか import できないようにする。
 import { createClient } from "microcms-js-sdk";
 import type { MicroCMSQueries, MicroCMSImage, MicroCMSListContent } from "microcms-js-sdk";
 

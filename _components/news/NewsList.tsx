@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { News } from "@/app/_libs/microcms";
+import type { News } from "@/app/_libs/microcms";
 import Badge from "@/_components/ui/Badge";
 import PublishedDate from "@/_components/ui/PublishedDate";
 import { NEWS_NEW_BADGE_DAYS } from "@/app/_constants";
