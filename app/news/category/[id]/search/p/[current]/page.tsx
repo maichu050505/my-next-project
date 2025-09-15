@@ -6,8 +6,6 @@ import Results from "../../Results";
 import { getCategoryDetail } from "@/app/_libs/microcms";
 import ResultsSkeleton from "@/_components/news/ResultsSkeleton";
 
-export const revalidate = 0;
-
 type Props = {
   params: Promise<{ id: string; current: string }>;
   searchParams: Promise<{ q?: string }>;

@@ -7,8 +7,6 @@ import { NEWS_LIST_LIMIT } from "@/app/_constants";
 import Results from "@/app/news/search/Results";
 import ResultsSkeleton from "@/_components/news/ResultsSkeleton";
 
-export const revalidate = 0;
-
 type Props = {
   params: Promise<{ current: string }>;
   searchParams: Promise<{ q?: string }>;
