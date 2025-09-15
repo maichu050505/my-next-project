@@ -5,6 +5,8 @@ import HeroSection from "@/_components/ui/HeroSection";
 import { getNewsList } from "@/app/_libs/microcms";
 import { TOP_NEWS_LIMIT } from "@/app/_constants";
 
+export const revalidate = 60;
+
 const services = [
   {
     t: "コーポレートサイト制作",
