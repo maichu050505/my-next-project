@@ -5,6 +5,8 @@ type Props = {
   children: React.ReactNode;
 };
 
+export const revalidate = 0;
+
 export default async function RootLayout({ children }: Props) {
   return (
     <main className="bg-white text-gray-800">
