@@ -28,7 +28,8 @@ export default function Button({
 }: ButtonProps) {
   const base =
     "group inline-grid grid-cols-[1fr_auto_1fr] items-center rounded-full " +
-    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-300 transition";
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-300 transition " +
+    "disabled:opacity-60 disabled:cursor-not-allowed";
 
   const sizing =
     size === "lg"
@@ -39,9 +40,9 @@ export default function Button({
 
   const variantClass =
     variant === "primary"
-      ? // CTA：青グラデ・白文字
-        "text-white font-semibold shadow " +
-        "bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-600 hover:opacity-95"
+      ? // ▼ 単色の青ボタン（グラデ削除）
+        "text-white font-semibold shadow border border-transparent " +
+        "bg-sky-600 hover:bg-sky-700 active:bg-sky-800"
       : // 一覧ボタン：白ベース・水色の枠
         "border border-sky-300 bg-white text-sky-600 font-semibold shadow-sm " + "hover:bg-sky-50";
 

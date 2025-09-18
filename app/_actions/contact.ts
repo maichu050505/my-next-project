@@ -1,0 +1,74 @@
+"use server";
+import "server-only";
+
+function validateEmail(email: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+export async function createContactData(_prev: any, formData: FormData) {
+  const raw = {
+    lastname: (formData.get("lastname") || "").toString().trim(),
+    firstname: (formData.get("firstname") || "").toString().trim(),
+    company: (formData.get("company") || "").toString().trim(), // 任意
+    email: (formData.get("email") || "").toString().trim(),
+    message: (formData.get("message") || "").toString().trim(),
+    website: (formData.get("website") || "").toString().trim(), // ハニーポット
+  };
+
+  if (raw.website) return { status: "error", message: "送信に失敗しました。" };
+
+  if (!raw.lastname) return { status: "error", message: "姓を入力してください" };
+  if (!raw.firstname) return { status: "error", message: "名を入力してください" };
+  // 会社名は任意なので検証しない
+  if (!raw.email) return { status: "error", message: "メールアドレスを入力してください" };
+  if (!validateEmail(raw.email))
+    return { status: "error", message: "メールアドレスの形式が誤っています" };
+  if (!raw.message) return { status: "error", message: "メッセージを入力してください" };
+
+  const portalId = process.env.HUBSPOT_PORTAL_ID;
+  const formId = process.env.HUBSPOT_FORM_ID;
+  if (!portalId || !formId) {
+    console.error("HubSpot env missing");
+    return { status: "error", message: "送信設定が未完了です。" };
+  }
+
+  // HubSpotのフォーム定義に合わせて送信
+  const fields: Array<{ objectTypeId: string; name: string; value: string }> = [
+    { objectTypeId: "0-1", name: "lastname", value: raw.lastname },
+    { objectTypeId: "0-1", name: "firstname", value: raw.firstname },
+    { objectTypeId: "0-1", name: "email", value: raw.email },
+    { objectTypeId: "0-1", name: "message", value: raw.message },
+  ];
+  if (raw.company) {
+    fields.push({ objectTypeId: "0-1", name: "company", value: raw.company });
+  }
+
+  try {
+    const res = await fetch(
+      `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fields }),
+        cache: "no-store",
+      }
+    );
+
+    if (!res.ok) {
+      const text = await res.text();
+      console.error("HubSpot error:", res.status, text);
+      return { status: "error", message: "お問い合わせに失敗しました" };
+    }
+
+    try {
+      await res.json();
+    } catch {
+      /* HubSpotが空JSONのこともある */
+    }
+
+    return { status: "success", message: "OK" };
+  } catch (e) {
+    console.error(e);
+    return { status: "error", message: "お問い合わせに失敗しました" };
+  }
+}
