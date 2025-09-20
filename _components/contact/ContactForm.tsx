@@ -1,5 +1,6 @@
 "use client";
 
+import { sendGAEvent } from "@next/third-parties/google";
 import { useId } from "react";
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
@@ -37,6 +38,10 @@ export default function ContactForm() {
   const emailId = `${uid}-email`;
   const messageId = `${uid}-message`;
 
+  const handleSubmit = () => {
+    sendGAEvent({ event: "contact", value: "submit" });
+  };
+
   if (state.status === "success") {
     return (
       <div
@@ -54,7 +59,7 @@ export default function ContactForm() {
   }
 
   return (
-    <form action={formAction} className="space-y-6">
+    <form action={formAction} onSubmit={handleSubmit} className="space-y-6">
       {state.status === "error" && (
         <div
           className="rounded-md border border-red-200 bg-red-50 p-3 text-red-700"
