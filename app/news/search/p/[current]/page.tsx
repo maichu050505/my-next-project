@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { getNewsList } from "@/app/_libs/microcms";
@@ -13,6 +14,27 @@ type Props = {
   params: Promise<{ current: string }>;
   searchParams: Promise<{ q?: string }>;
 };
+
+function pagedTitle(n: number) {
+  return n > 1 ? `ニュース検索（${n}ページ目）` : "ニュース検索";
+}
+
+export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
+  const { current } = await params;
+  const { q } = await searchParams;
+  const n = Number(current) || 1;
+
+  const qs = q ? `?q=${encodeURIComponent(q)}` : "";
+  const canonical = n > 1 ? `/news/search/p/${n}${qs}` : `/news/search${qs}`;
+  const title = pagedTitle(n);
+
+  return {
+    title, // root の template が適用される
+    robots: { index: false, follow: false }, // 検索結果は noindex 推奨
+    alternates: { canonical },
+    openGraph: { title },
+  };
+}
 
 export default async function NewsSearchPaged({ params, searchParams }: Props) {
   const { current: currentStr } = await params;

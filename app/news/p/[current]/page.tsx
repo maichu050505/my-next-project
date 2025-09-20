@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { getNewsList } from "@/app/_libs/microcms";
 import NewsList from "@/_components/news/NewsList";
@@ -10,6 +11,22 @@ import { Suspense } from "react";
 type Props = {
   params: Promise<{ current: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { current } = await params;
+  const n = Number(current) || 1;
+
+  const base = "ニュース";
+  const title = n > 1 ? `${base}（${n}ページ目）` : base;
+
+  return {
+    title, // root の template "%s | コーポレートサイト Sample" が効く
+    alternates: {
+      canonical: n > 1 ? `/news/p/${n}` : `/news`,
+    },
+    openGraph: { title },
+  };
+}
 
 export default async function NewsPage({ params }: Props) {
   const current = parseInt((await params).current, 10);

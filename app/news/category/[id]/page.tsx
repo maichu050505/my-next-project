@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { getCategoryDetail, getNewsList } from "@/app/_libs/microcms";
 import NewsList from "@/_components/news/NewsList";
 import Breadcrumbs from "@/_components/ui/Breadcrumbs";
@@ -9,6 +10,17 @@ import SearchField from "@/_components/ui/SearchField";
 import { Suspense } from "react";
 
 type Props = { params: Promise<{ id: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params;
+  const category = await getCategoryDetail(id).catch(() => null);
+  // カテゴリが見つからないときは安全にフォールバック
+  const title = category?.name ?? "ニュースカテゴリ";
+  return {
+    title, // root layout の template "%s | コーポレートサイト Sample" が効く
+    description: `${title} に関するニュース一覧です。`,
+  };
+}
 
 export default async function NewsPage({ params }: Props) {
   const { id } = await params;

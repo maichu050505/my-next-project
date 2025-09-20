@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import Breadcrumbs from "@/_components/ui/Breadcrumbs";
 import SearchField from "@/_components/ui/SearchField";
@@ -7,6 +8,14 @@ import ResultsSkeleton from "@/_components/news/ResultsSkeleton";
 export const revalidate = 0; // 即時反映
 
 type Props = { searchParams: Promise<{ q?: string }> };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "ニュース検索", // rootの "%s | コーポレートサイト Sample" が効く
+    robots: { index: false, follow: false }, // 検索結果はnoindex推奨
+    openGraph: { title: "ニュース検索" },
+  };
+}
 
 export default async function NewsSearchPage({ searchParams }: Props) {
   const { q } = await searchParams;

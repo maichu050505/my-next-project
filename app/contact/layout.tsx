@@ -1,6 +1,10 @@
 import HeroSection from "@/_components/ui/HeroSection";
 import PageContentsSection from "@/_components/ui/PageContentsSection";
 
+export const metadata = {
+  title: "お問い合わせ",
+};
+
 type Props = {
   children: React.ReactNode;
 };

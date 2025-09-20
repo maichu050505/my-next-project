@@ -6,6 +6,10 @@ import Pagination from "@/_components/ui/Pagination";
 import SearchField from "@/_components/ui/SearchField";
 import { Suspense } from "react";
 
+export const metadata = {
+  title: "ニュース", // ← root の "%s | コーポレートサイト Sample" が効く
+};
+
 export default async function NewsPage() {
   const { contents: news, totalCount } = await getNewsList({
     limit: NEWS_LIST_LIMIT,

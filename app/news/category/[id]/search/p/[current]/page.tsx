@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import Breadcrumbs from "@/_components/ui/Breadcrumbs";
@@ -12,6 +13,27 @@ type Props = {
   params: Promise<{ id: string; current: string }>;
   searchParams: Promise<{ q?: string }>;
 };
+
+export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
+  const { id, current } = await params;
+  const { q } = await searchParams;
+  const n = Number(current) || 1;
+
+  const category = await getCategoryDetail(id).catch(() => null);
+  const base = `${category?.name ?? "ニュース"} 検索`;
+  const title = n > 1 ? `${base}（${n}ページ目）` : base;
+
+  const qs = q?.trim() ? `?q=${encodeURIComponent(q!.trim())}` : "";
+  const canonical =
+    n > 1 ? `/news/category/${id}/search/p/${n}${qs}` : `/news/category/${id}/search${qs}`;
+
+  return {
+    title, // root の template が適用される
+    robots: { index: false, follow: false }, // 検索結果は noindex 推奨
+    alternates: { canonical },
+    openGraph: { title },
+  };
+}
 
 export default async function CategorySearchPaged({ params, searchParams }: Props) {
   const { id, current: currentStr } = await params;

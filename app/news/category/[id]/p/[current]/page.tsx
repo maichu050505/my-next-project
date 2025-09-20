@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { getCategoryDetail, getNewsList } from "@/app/_libs/microcms";
 import NewsList from "@/_components/news/NewsList";
 import Breadcrumbs from "@/_components/ui/Breadcrumbs";
@@ -9,6 +10,29 @@ import SearchField from "@/_components/ui/SearchField";
 import { Suspense } from "react";
 
 type Props = { params: Promise<{ id: string; current: string; basePath?: string }> };
+
+function pagedTitle(base: string, n: number) {
+  return n > 1 ? `${base}（${n}ページ目）` : base;
+}
+
+// ▼ タイトル・canonical など（root の template "%s | コーポレートサイト Sample" が効く）
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id, current } = await params;
+  const n = Number(current) || 1;
+
+  const category = await getCategoryDetail(id).catch(() => null);
+  const base = category?.name ?? "ニュース";
+  const title = pagedTitle(base, n);
+
+  return {
+    title,
+    description: `${base} に関するニュース一覧です。`,
+    alternates: {
+      canonical: n > 1 ? `/news/category/${id}/p/${n}` : `/news/category/${id}`,
+    },
+    openGraph: { title, description: `${base} のニュース一覧` },
+  };
+}
 
 export default async function NewsPage({ params }: Props) {
   const { id, current: currentStr } = await params;
