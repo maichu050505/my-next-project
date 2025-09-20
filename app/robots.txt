@@ -1,2 +1,3 @@
-User-agent:
+User-agent: *
 Allow: /
+sitemap: https://my-next-project-xugx.vercel.app/sitemap.xml

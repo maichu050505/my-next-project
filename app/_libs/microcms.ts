@@ -42,11 +42,19 @@ export const getMembersList = async (queries?: MicroCMSQueries) => {
   return listData;
 };
 
-// 全ニュース記事一覧を取得する関数
+// 全ニュース記事一覧を取得する関数(100件まで)
 export const getNewsList = async (queries?: MicroCMSQueries) => {
   const listData = await client.getList<News>({
     endpoint: "news",
     queries,
+  });
+  return listData;
+};
+
+// 全ニュース記事一覧を取得する関数
+export const getAllNewsList = async () => {
+  const listData = await client.getAllContents<News>({
+    endpoint: "news",
   });
   return listData;
 };
@@ -67,7 +75,7 @@ export const getNewsDetail = async (contentId: string, queries?: MicroCMSQueries
   return detailData;
 };
 
-// カテゴリーのコンテンツを取得する関数
+// カテゴリーのコンテンツを取得する関数(100件まで)
 export const getCategoryDetail = async (contentId: string, queries?: MicroCMSQueries) => {
   const detailData = await client.getListDetail<Category>({
     endpoint: "categories",
@@ -75,4 +83,12 @@ export const getCategoryDetail = async (contentId: string, queries?: MicroCMSQue
     queries,
   });
   return detailData;
+};
+
+// カテゴリーの全コンテンツを取得する関数
+export const getAllCategoryList = async () => {
+  const listData = await client.getAllContents<Category>({
+    endpoint: "categories",
+  });
+  return listData;
 };
