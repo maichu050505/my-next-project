@@ -7,14 +7,13 @@ function validateEmail(email: string) {
 
 type ActionResult = { status: "success" | "error"; message: string };
 
-console.log(
-  "[contact] env",
-  {
+if (process.env.NODE_ENV !== "production") {
+  console.log("[contact] env", {
     hasPortalId: !!process.env.HUBSPOT_PORTAL_ID,
     hasFormId: !!process.env.HUBSPOT_FORM_ID,
-    runtime: process.env.NEXT_RUNTIME,
-  } // "nodejs" か "edge" のヒント
-);
+    runtime: process.env.NEXT_RUNTIME, // "nodejs" になるはず
+  });
+}
 
 export async function createContactData(_prev: unknown, formData: FormData): Promise<ActionResult> {
   const raw = {
@@ -55,6 +54,9 @@ export async function createContactData(_prev: unknown, formData: FormData): Pro
   }
 
   try {
+    const controller = new AbortController();
+    const t = setTimeout(() => controller.abort(), 10_000);
+
     const res = await fetch(
       `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`,
       {
@@ -62,8 +64,10 @@ export async function createContactData(_prev: unknown, formData: FormData): Pro
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ fields }),
         cache: "no-store",
+        signal: controller.signal,
       }
     );
+    clearTimeout(t);
 
     if (!res.ok) {
       const text = await res.text();

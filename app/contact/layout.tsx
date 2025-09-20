@@ -5,6 +5,9 @@ type Props = {
   children: React.ReactNode;
 };
 
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
 export default function RootLayout({ children }: Props) {
   return (
     <main className="bg-white text-gray-800">
