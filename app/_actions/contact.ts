@@ -5,7 +5,9 @@ function validateEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-export async function createContactData(_prev: any, formData: FormData) {
+type ActionResult = { status: "success" | "error"; message: string };
+
+export async function createContactData(_prev: unknown, formData: FormData): Promise<ActionResult> {
   const raw = {
     lastname: (formData.get("lastname") || "").toString().trim(),
     firstname: (formData.get("firstname") || "").toString().trim(),
