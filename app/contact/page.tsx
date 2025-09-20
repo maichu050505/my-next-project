@@ -1,6 +1,9 @@
 import ContactForm from "@/_components/contact/ContactForm";
 import Breadcrumbs from "@/_components/ui/Breadcrumbs";
 
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
 export default function ContactPage() {
   return (
     <>

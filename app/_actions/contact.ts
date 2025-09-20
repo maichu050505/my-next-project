@@ -7,6 +7,15 @@ function validateEmail(email: string) {
 
 type ActionResult = { status: "success" | "error"; message: string };
 
+console.log(
+  "[contact] env",
+  {
+    hasPortalId: !!process.env.HUBSPOT_PORTAL_ID,
+    hasFormId: !!process.env.HUBSPOT_FORM_ID,
+    runtime: process.env.NEXT_RUNTIME,
+  } // "nodejs" か "edge" のヒント
+);
+
 export async function createContactData(_prev: unknown, formData: FormData): Promise<ActionResult> {
   const raw = {
     lastname: (formData.get("lastname") || "").toString().trim(),
