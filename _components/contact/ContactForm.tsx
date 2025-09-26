@@ -208,6 +208,29 @@ export default function ContactForm() {
       {/* ハニーポット（任意）古いボット対策用 */}
       <input type="text" name="website" className="hidden" tabIndex={-1} autoComplete="off" />
       <SubmitInForm verifying={verifying} />
+
+      {/* reCAPTCHA 表記 */}
+      <p className="recaptcha-notice mt-4 text-center text-xs text-slate-500">
+        このサイトは reCAPTCHA によって保護されており、
+        <a
+          href="https://policies.google.com/privacy"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline hover:text-slate-700 ml-1"
+        >
+          Google プライバシーポリシー
+        </a>
+        と
+        <a
+          href="https://policies.google.com/terms"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline hover:text-slate-700 ml-1"
+        >
+          利用規約
+        </a>
+        が適用されます。
+      </p>
     </form>
   );
 }

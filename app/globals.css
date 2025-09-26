@@ -36,3 +36,8 @@ body {
   appearance: none;
   display: none;
 }
+
+/* reCAPTCHA v3 バッジ非表示 */
+.grecaptcha-badge {
+  visibility: hidden;
+}
