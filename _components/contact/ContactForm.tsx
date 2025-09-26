@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import { sendGAEvent } from "@next/third-parties/google";
 import { useId } from "react";
 import { useActionState } from "react";
@@ -32,6 +33,9 @@ export default function ContactForm() {
   const [state, formAction] = useActionState(createContactData, initialState);
   const uid = useId();
 
+  // 初回マウント時の時刻を固定
+  const renderedAtRef = useRef<number>(Date.now());
+
   const lastId = `${uid}-lastname`;
   const firstId = `${uid}-firstname`;
   const companyId = `${uid}-company`;
@@ -59,7 +63,7 @@ export default function ContactForm() {
   }
 
   return (
-    <form action={formAction} onSubmit={handleSubmit} className="space-y-6">
+    <form action={formAction} onSubmit={handleSubmit} className="space-y-6" autoComplete="off">
       {state.status === "error" && (
         <div
           className="rounded-md border border-red-200 bg-red-50 p-3 text-red-700"
@@ -69,6 +73,23 @@ export default function ContactForm() {
           {state.message || "入力内容をご確認ください。"}
         </div>
       )}
+
+      {/* --- HoneyPot（画面外に追い出す） --- */}
+      <div
+        aria-hidden="true"
+        className="absolute -left-[9999px] top-auto w-px h-px overflow-hidden"
+      >
+        <label htmlFor={`${uid}-hp-website`}>あなたのWebサイト</label>
+        <input
+          id={`${uid}-hp-website`}
+          name="hp_website"
+          autoComplete="off"
+          tabIndex={-1}
+          inputMode="text"
+        />
+        {/* タイムベース罠：フォーム表示からの経過時間を送る */}
+        <input type="hidden" name="hp_timestamp" value={String(renderedAtRef.current)} />
+      </div>
 
       {/* お名前（姓・名：必須） */}
       <div className="grid gap-4 md:grid-cols-2">
@@ -151,7 +172,7 @@ export default function ContactForm() {
         />
       </div>
 
-      {/* ハニーポット（任意） */}
+      {/* ハニーポット（任意）古いボット対策用 */}
       <input type="text" name="website" className="hidden" tabIndex={-1} autoComplete="off" />
 
       <SubmitInForm />

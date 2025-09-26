@@ -16,6 +16,22 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 export async function createContactData(_prev: unknown, formData: FormData): Promise<ActionResult> {
+  // 追加: ハニーポット検証
+  const hpWebsite = (formData.get("hp_website") || "").toString().trim();
+  const hpTimestamp = Number((formData.get("hp_timestamp") || "").toString());
+
+  if (hpWebsite) {
+    // URLや@を含むならより強いボット判定
+    // if (/(https?:\/\/|www\.|@)/i.test(hpWebsite)) { ... } ← 任意
+    return { status: "error", message: "送信に失敗しました。" };
+  }
+
+  const elapsed = Number.isFinite(hpTimestamp) ? Date.now() - hpTimestamp : 0;
+  // 2.5秒未満ならボット疑義
+  if (!hpTimestamp || elapsed < 2500 || elapsed < 0) {
+    return { status: "error", message: "送信に失敗しました。" };
+  }
+
   const raw = {
     lastname: (formData.get("lastname") || "").toString().trim(),
     firstname: (formData.get("firstname") || "").toString().trim(),
