@@ -32,6 +32,49 @@ export async function createContactData(_prev: unknown, formData: FormData): Pro
     return { status: "error", message: "送信に失敗しました。" };
   }
 
+  // --- reCAPTCHA v3 verify（追加） ---
+  const token = (formData.get("captcha_token") || "").toString();
+  if (!token) {
+    return { status: "error", message: "送信に失敗しました。" };
+  }
+  const secret = process.env.RECAPTCHA_SECRET_KEY;
+  if (!secret) {
+    console.error("Missing RECAPTCHA_SECRET_KEY");
+    return { status: "error", message: "送信設定が未完了です。" };
+  }
+
+  const params = new URLSearchParams();
+  params.set("secret", secret);
+  params.set("response", token);
+  // remoteip が取れる場合は params.set("remoteip", ip);
+
+  const verifyRes = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: params.toString(),
+  });
+
+  type ReCaptchaResult = {
+    success: boolean;
+    score?: number;
+    action?: string;
+    challenge_ts?: string;
+    hostname?: string;
+    "error-codes"?: string[];
+  };
+  const result: ReCaptchaResult = await verifyRes.json();
+
+  if (!result.success) {
+    console.error("reCAPTCHA failed:", result["error-codes"]);
+    return { status: "error", message: "送信に失敗しました。" };
+  }
+
+  // スコアと action をチェック（閾値は 0.5〜0.7 から開始推奨）
+  if ((result.score ?? 0) < 0.5 || result.action !== "contact_submit") {
+    console.warn("reCAPTCHA low score or wrong action:", result);
+    return { status: "error", message: "送信に失敗しました。" };
+  }
+
   const raw = {
     lastname: (formData.get("lastname") || "").toString().trim(),
     firstname: (formData.get("firstname") || "").toString().trim(),
