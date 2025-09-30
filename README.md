@@ -20,24 +20,23 @@
 - meta タグ・OGP・サイトマップなどの SEO 最適化
 - お問い合わせフォーム（HubSpot 連携 + Honeypot + reCAPTCHA）
 - Lighthouse パフォーマンス・SEO・アクセシビリティ 90 点以上達成
-- アクセシビリティ考慮（aria 属性、カラーコントラスト対応）
+- アクセシビリティ考慮（例: `aria-current`, `aria-controls` の利用、カラーコントラスト調整）
 
 ## スクリーンショット
 
-（ここに `public/screenshots/` に保存したスクショを貼る）
+![トップページ](./public/screenshots/top.jpg)
+![ニュース一覧](./public/screenshots/news.jpg)
+![ニュース詳細](./public/screenshots/news_single.jpg)
+![お問い合わせフォーム](./public/screenshots/contact.jpg)
+![Lighthouse](./public/screenshots/Lighthouse.jpg)
 
-例:
-![トップページ](./public/screenshots/top.png)
-![記事一覧](./public/screenshots/blog.png)
-![お問い合わせフォーム](./public/screenshots/contact.png)
-
-## デモサイト
+## 公開 URL
 
 https://my-next-project-xugx.vercel.app/
 
 ## 学習ポイント
 
-- Next.js の App Router によるルーティング・サーバーコンポーネント設計
-- microCMS REST API とのデータ取得
-- 問い合わせフォームでの外部サービス連携とセキュリティ対策
+- Next.js の App Router によるルーティングとサーバーコンポーネントの活用
+- microCMS REST API（microcms-js-sdk） とのデータ取得
+- 問い合わせフォームでの外部サービス（HubSpot）連携とセキュリティ対策（Honeypot, reCAPTCHA）
 - Lighthouse 監査を通じたパフォーマンス・SEO・アクセシビリティ改善
