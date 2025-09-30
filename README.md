@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js × microCMS Corporate Site
 
-## Getting Started
+このリポジトリは、Next.js と microCMS を利用して構築した  
+デザイン会社を想定したコーポレートサイトのポートフォリオです。
 
-First, run the development server:
+## 使用技術
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Framework**: Next.js v15 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **CMS**: microCMS
+- **Deployment**: Vercel
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 実装機能
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- トップページ／会社概要／メンバー／ニュース／お問い合わせページ
+- microCMS 管理画面から編集可能：
+  - **メンバー**ページ（メンバー情報を CMS から取得して表示）
+  - **ニュース**ページ（一覧・詳細・カテゴリ絞り込み・ページネーション・検索対応）
+- meta タグ・OGP・サイトマップなどの SEO 最適化
+- お問い合わせフォーム（HubSpot 連携 + Honeypot + reCAPTCHA）
+- Lighthouse パフォーマンス・SEO・アクセシビリティ 90 点以上達成
+- アクセシビリティ考慮（aria 属性、カラーコントラスト対応）
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## スクリーンショット
 
-## Learn More
+（ここに `public/screenshots/` に保存したスクショを貼る）
 
-To learn more about Next.js, take a look at the following resources:
+例:
+![トップページ](./public/screenshots/top.png)
+![記事一覧](./public/screenshots/blog.png)
+![お問い合わせフォーム](./public/screenshots/contact.png)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## デモサイト
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+https://my-next-project-xugx.vercel.app/
 
-## Deploy on Vercel
+## 学習ポイント
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Next.js の App Router によるルーティング・サーバーコンポーネント設計
+- microCMS REST API とのデータ取得
+- 問い合わせフォームでの外部サービス連携とセキュリティ対策
+- Lighthouse 監査を通じたパフォーマンス・SEO・アクセシビリティ改善

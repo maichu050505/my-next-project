@@ -1,9 +1,16 @@
+import { Noto_Sans_JP } from "next/font/google";
 import type { Metadata } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/_components/layout/Header";
 import Footer from "@/_components/layout/Footer";
+
+const noto = Noto_Sans_JP({
+  subsets: ["latin"],
+  display: "swap",
+  adjustFontFallback: true,
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,7 +49,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="ja" className={`${geistSans.variable} ${geistMono.variable} ${noto.className}`}>
       <body className="min-h-dvh bg-white text-gray-800">
         <Header />
         {children}
