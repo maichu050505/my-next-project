@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-5 sm:px-6 py-10 text-center text-sm text-gray-500">
         <nav className="flex justify-center gap-6 mb-4">
           {navItems.map((item) => (
-            <Link key={item.href} href={item.href} className="hover:text-sky-600 transition">
+            <Link key={item.href} href={item.href} className="hover:text-sky-700 transition">
               {item.label}
             </Link>
           ))}

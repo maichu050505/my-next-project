@@ -28,8 +28,8 @@ export default function Button({
 }: ButtonProps) {
   const base =
     "group inline-grid grid-cols-[1fr_auto_1fr] items-center rounded-full " +
-    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-300 transition " +
-    "disabled:opacity-60 disabled:cursor-not-allowed";
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 transition " +
+    "disabled:cursor-not-allowed";
 
   const sizing =
     size === "lg"
@@ -44,7 +44,7 @@ export default function Button({
         "text-white font-semibold shadow border border-transparent " +
         "bg-sky-600 hover:bg-sky-700 active:bg-sky-800"
       : // 一覧ボタン：白ベース・水色の枠
-        "border border-sky-300 bg-white text-sky-600 font-semibold shadow-sm " + "hover:bg-sky-50";
+        "border border-sky-600 bg-white text-sky-700 font-semibold shadow-sm " + "hover:bg-sky-50";
 
   const contentLeftSpacer = (
     <span className="w-5 h-5 justify-self-start opacity-0" aria-hidden="true" />

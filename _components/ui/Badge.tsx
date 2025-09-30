@@ -20,7 +20,7 @@ const variants: Record<BadgeVariant, Record<BadgeTone, string>> = {
   sky: {
     solid: "bg-sky-600 text-white",
     soft: "bg-sky-50 text-sky-700",
-    outline: "border border-sky-300 text-sky-700",
+    outline: "border border-sky-600 text-sky-700",
   },
   indigo: {
     solid: "bg-indigo-600 text-white",

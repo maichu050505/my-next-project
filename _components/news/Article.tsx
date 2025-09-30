@@ -55,7 +55,7 @@ export default function Article({ data }: Props) {
         className="
           prose prose-slate sm:prose-lg max-w-none
           prose-headings:scroll-mt-24
-          prose-a:text-sky-600 prose-a:no-underline hover:prose-a:underline
+          prose-a:text-sky-700 prose-a:no-underline hover:prose-a:underline
           prose-img:rounded-xl prose-figure:my-8
           prose-hr:border-gray-200
           prose-blockquote:border-sky-500/20 prose-blockquote:text-gray-700

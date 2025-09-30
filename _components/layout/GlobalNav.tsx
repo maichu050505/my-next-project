@@ -36,8 +36,8 @@ export default function GlobalNav({ items }: { items: Item[] }) {
             key={it.href}
             href={it.href}
             className={clsx(
-              "transition hover:text-sky-600",
-              isActive(it.href) ? "text-sky-600" : "text-gray-700"
+              "transition hover:text-sky-700",
+              isActive(it.href) ? "text-sky-700" : "text-gray-700"
             )}
             aria-current={isActive(it.href) ? "page" : undefined}
           >
@@ -49,7 +49,7 @@ export default function GlobalNav({ items }: { items: Item[] }) {
       {/* モバイル：ハンバーガー */}
       <button
         type="button"
-        className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-300"
+        className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600"
         aria-label="メニューを開閉"
         aria-expanded={open}
         aria-controls={panelId}
@@ -99,7 +99,7 @@ export default function GlobalNav({ items }: { items: Item[] }) {
               onClick={() => setOpen(false)}
               className={clsx(
                 "block rounded-lg px-3 py-3 text-base hover:bg-gray-50",
-                isActive(it.href) && "text-sky-600"
+                isActive(it.href) && "text-sky-700"
               )}
             >
               {it.label}

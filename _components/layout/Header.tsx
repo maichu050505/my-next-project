@@ -7,7 +7,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-gray-100">
       <div className="max-w-6xl mx-auto px-5 sm:px-6 flex items-center justify-between h-16">
         {/* ロゴ */}
-        <Link href="/" className="flex items-center gap-2 font-bold text-xl text-sky-600">
+        <Link href="/" className="flex items-center gap-2 font-bold text-xl text-sky-700">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"

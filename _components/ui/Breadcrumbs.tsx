@@ -43,7 +43,7 @@ export default function Breadcrumbs({ items, baseLabel = "ホーム", baseHref =
         <nav aria-label="Breadcrumb" className="text-xs sm:text-sm">
           <ol className="flex flex-wrap items-center gap-2 text-gray-500">
             <li>
-              <Link href={baseHref} className="hover:text-sky-600">
+              <Link href={baseHref} className="hover:text-sky-700">
                 {baseLabel}
               </Link>
             </li>
@@ -53,7 +53,7 @@ export default function Breadcrumbs({ items, baseLabel = "ホーム", baseHref =
                 <li key={`${c.name}-${idx}`} className="flex items-center gap-2">
                   <span aria-hidden="true">&gt;</span>
                   {c.href ? (
-                    <Link href={c.href} className="hover:text-sky-600">
+                    <Link href={c.href} className="hover:text-sky-700">
                       {c.name}
                     </Link>
                   ) : (

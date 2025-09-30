@@ -39,7 +39,7 @@ export default function Pagination({
 
   const baseItem =
     "inline-flex items-center justify-center w-9 h-9 text-sm rounded-full transition " +
-    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-300";
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600";
   const inactive =
     "border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 hover:text-gray-900";
   const active =

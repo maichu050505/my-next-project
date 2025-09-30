@@ -91,7 +91,7 @@ export default function SearchField({
           autoFocus={autoFocus}
           className={clsx(
             "w-full bg-white border border-gray-200 text-gray-900 placeholder:text-gray-400",
-            "focus:outline-none focus:ring-2 focus:ring-sky-300 focus:border-sky-300",
+            "focus:outline-none focus:ring-2 focus:ring-sky-300 focus:border-sky-600",
             "pr-10 pl-10",
             sizeMap[size]
           )}
