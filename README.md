@@ -20,7 +20,7 @@
 - meta タグ・OGP・サイトマップなどの SEO 最適化
 - お問い合わせフォーム（HubSpot 連携 + Honeypot + reCAPTCHA）
 - Lighthouse パフォーマンス・SEO・アクセシビリティ 90 点以上達成
-- アクセシビリティ考慮（例: `aria-current`, `aria-controls` の利用、カラーコントラスト調整）
+- アクセシビリティ（a11y）対応（ARIA 属性、カラーコントラスト調整、キーボード操作対応）
 
 ## スクリーンショット
 
