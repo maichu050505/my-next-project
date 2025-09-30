@@ -28,7 +28,6 @@ export default function HeroSection({
   className,
 }: Props) {
   const isGradient = background.type === "gradient";
-  const animateGradient = className?.includes("animate-gradient");
   const isImage = background.type === "image";
 
   const alignWrap = clsx(
@@ -47,17 +46,15 @@ export default function HeroSection({
   return (
     <section
       className={clsx(alignWrap, bgClass, heightClass, className)}
-      style={{
-        ...(isImage
+      style={
+        isImage
           ? {
               backgroundImage: `url(${background.url})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
             }
-          : undefined),
-        // アニメクラスが付いている時だけ遅延（JS不要）
-        ...(animateGradient ? { animationDelay: "2000ms" } : null),
-      }}
+          : undefined
+      }
     >
       {isImage && (
         <div
