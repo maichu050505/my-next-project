@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useState, useRef } from "react";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 
@@ -12,6 +12,8 @@ export default function GlobalNav({ items }: { items: Item[] }) {
   const [open, setOpen] = useState<boolean>(false);
   const pathname = usePathname();
   const panelId = useId();
+  const titleId = useId();
+  const panelRef = useRef<HTMLDivElement>(null);
 
   // Esc で閉じる
   useEffect(() => {
@@ -81,7 +83,14 @@ export default function GlobalNav({ items }: { items: Item[] }) {
         )}
         role="dialog"
         aria-modal="true"
+        aria-labelledby={titleId}
+        tabIndex={-1}
+        hidden={!open}
       >
+        {/* 画面には出さないが、ダイアログ名として読む */}
+        <h2 id={titleId} className="sr-only">
+          メインメニュー
+        </h2>
         <nav className="max-w-6xl mx-auto px-5 sm:px-6 py-4 flex flex-col gap-2 text-gray-800">
           {items.map((it) => (
             <Link
