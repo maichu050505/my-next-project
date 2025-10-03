@@ -36,7 +36,7 @@ https://my-next-project-xugx.vercel.app/
 
 ## 学習ポイント
 
-- Next.js の App Router によるルーティングとサーバーコンポーネントの活用
+- Next.js v15 の App Router によるルーティングとサーバーコンポーネントの活用
 - microCMS REST API（microcms-js-sdk） とのデータ取得
 - 問い合わせフォームでの外部サービス（HubSpot）連携とセキュリティ対策（Honeypot, reCAPTCHA）
 - Lighthouse 監査を通じたパフォーマンス・SEO・アクセシビリティ改善
